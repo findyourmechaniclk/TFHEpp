@@ -34,6 +34,17 @@ jobs:
         with:
           submodules: recursive
 
+      # ── Cache Rust toolchain and dependencies ─────────────────────────────
+      - name: Cache Rust toolchain and dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo
+            ~/.rustup
+          key: ${{ runner.os }}-rust-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-rust-
+
       # ── Clone tfhe-rs alongside TFHEpp ───────────────────────────────────
       - name: Clone tfhe-rs
         run: |
